@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: odysseus
+
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - secret.example.yaml
+  - app-pvc.yaml
+  - chromadb-pvc.yaml
+  - searxng-pvc.yaml
+  - ntfy-pvc.yaml
+  - app-deployment.yaml
+  - app-service.yaml
+  - chromadb-deployment.yaml
+  - chromadb-service.yaml
+  - searxng-configmap.yaml
+  - searxng-deployment.yaml
+  - searxng-service.yaml
+  - ntfy-deployment.yaml
+  - ntfy-service.yaml
+  - ingress.yaml

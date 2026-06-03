@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: odysseus-config
+data:
+  APP_BIND: "0.0.0.0"
+  APP_PORT: "7000"
+  AUTH_ENABLED: "true"
+  LOCALHOST_BYPASS: "false"
+  SECURE_COOKIES: "true"
+  ALLOWED_ORIGINS: "https://odysseus.example.com,http://localhost,http://127.0.0.1"
+  DATABASE_URL: "sqlite:///./data/app.db"
+  ODYSSEUS_ADMIN_USER: "admin"
+  SEARXNG_INSTANCE: "http://searxng:8080"
+  CHROMADB_HOST: "chromadb"
+  CHROMADB_PORT: "8000"
+  LLM_HOST: "model.example.com"
+  LLM_HOSTS: ""
+  OLLAMA_BASE_URL: ""
+  RESEARCH_LLM_ENDPOINT: ""
+  EMBEDDING_URL: ""
+  EMBEDDING_MODEL: ""
+  FASTEMBED_MODEL: "sentence-transformers/all-MiniLM-L6-v2"
+  FASTEMBED_CACHE_PATH: "/app/.cache/huggingface"
+  CLEANUP_INTERVAL_HOURS: "24"
+  ODYSSEUS_INPROCESS_POLLERS: "1"
+  ODYSSEUS_INPROCESS_TASKS: "1"
+  ODYSSEUS_SCRIPT_HOST: "localhost"
+  PUID: "1000"
+  PGID: "1000"
+  NTFY_BASE_URL: "http://ntfy"

@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odysseus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: odysseus
+  template:
+    metadata:
+      labels:
+        app: odysseus
+    spec:
+      containers:
+        - name: odysseus
+          image: ghcr.io/pewdiepie-archdaemon/odysseus:main
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7000
+          envFrom:
+            - configMapRef:
+                name: odysseus-config
+            - secretRef:
+                name: odysseus-secrets
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 7000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 7000
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          volumeMounts:
+            - name: odysseus-data
+              mountPath: /app/data
+              subPath: data
+            - name: odysseus-data
+              mountPath: /app/logs
+              subPath: logs
+            - name: odysseus-data
+              mountPath: /app/.ssh
+              subPath: ssh
+            - name: odysseus-data
+              mountPath: /app/.cache/huggingface
+              subPath: huggingface
+            - name: odysseus-data
+              mountPath: /app/.local
+              subPath: local
+      volumes:
+        - name: odysseus-data
+          persistentVolumeClaim:
+            claimName: odysseus-app-storage

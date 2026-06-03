@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: odysseus
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-live
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - odysseus.example.com
+      secretName: odysseus-tls
+  rules:
+    - host: odysseus.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: odysseus
+                port:
+                  number: 7000

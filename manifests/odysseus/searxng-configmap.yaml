@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: searxng-settings-template
+data:
+  settings.yml: |
+    use_default_settings: true
+    server:
+      secret_key: "__SEARXNG_SECRET__"
+    search:
+      formats:
+        - html
+        - json

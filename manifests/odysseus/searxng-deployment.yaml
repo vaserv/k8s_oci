@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: searxng
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: searxng
+  template:
+    metadata:
+      labels:
+        app: searxng
+    spec:
+      containers:
+        - name: searxng
+          image: docker.io/searxng/searxng:2026.5.31-7159b8aed
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SEARXNG_BASE_URL
+              value: http://searxng:8080/
+            - name: SEARXNG_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: odysseus-secrets
+                  key: SEARXNG_SECRET
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -eu
+              if [ ! -s /etc/searxng/settings.yml ] || grep -q '__SEARXNG_SECRET__' /etc/searxng/settings.yml; then
+                secret="${SEARXNG_SECRET:-}"
+                if [ -z "$secret" ]; then
+                  secret="$(python -c 'import secrets; print(secrets.token_urlsafe(48))')"
+                fi
+                sed "s|__SEARXNG_SECRET__|$secret|g" /tmp/searxng-settings.yml.template > /etc/searxng/settings.yml
+              fi
+              exec /usr/local/searxng/entrypoint.sh
+          volumeMounts:
+            - name: searxng-data
+              mountPath: /etc/searxng
+            - name: searxng-template
+              mountPath: /tmp/searxng-settings.yml.template
+              subPath: settings.yml
+              readOnly: true
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - CHOWN
+                - SETGID
+                - SETUID
+                - DAC_OVERRIDE
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 20
+      volumes:
+        - name: searxng-data
+          persistentVolumeClaim:
+            claimName: searxng-data
+        - name: searxng-template
+          configMap:
+            name: searxng-settings-template
