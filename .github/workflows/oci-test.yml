@@ -79,12 +79,22 @@ jobs:
       - name: Trust deploy host
         run: ssh-keyscan -H "${DEPLOY_HOST}" >> ~/.ssh/known_hosts
 
+      - name: Copy manifests to server
+        run: |
+          ssh "${DEPLOY_USER}@${DEPLOY_HOST}" "rm -rf /tmp/k8s-oci-deploy/oci-test && mkdir -p /tmp/k8s-oci-deploy/oci-test"
+          scp manifests/app/namespace.yaml \
+            manifests/app/oci-test-deployment.yaml \
+            manifests/app/oci-test-service.yaml \
+            manifests/app/oci-test-ingress.yaml \
+            manifests/app/oci-test-nginx-config.yaml \
+            "${DEPLOY_USER}@${DEPLOY_HOST}:/tmp/k8s-oci-deploy/oci-test/"
+
       - name: Deploy to server2
         run: |
           IMAGE_REF="${IMAGE_NAME}:${GITHUB_SHA}"
           ssh "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "cd /root/k8s_oci && \
-             k3s kubectl apply -k manifests/app && \
+            "k3s kubectl apply -f /tmp/k8s-oci-deploy/oci-test/namespace.yaml && \
+             k3s kubectl -n k8s-oci apply -f /tmp/k8s-oci-deploy/oci-test/oci-test-deployment.yaml -f /tmp/k8s-oci-deploy/oci-test/oci-test-service.yaml -f /tmp/k8s-oci-deploy/oci-test/oci-test-ingress.yaml -f /tmp/k8s-oci-deploy/oci-test/oci-test-nginx-config.yaml && \
              k3s kubectl -n k8s-oci patch deployment oci-test --type=json -p='[{\"op\":\"replace\",\"path\":\"/spec/template/spec/volumes/0/image/reference\",\"value\":\"${IMAGE_REF}\"}]' && \
              k3s kubectl -n k8s-oci rollout status deployment/oci-test --timeout=120s"
 

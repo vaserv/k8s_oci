@@ -97,12 +97,22 @@ jobs:
       - name: Trust deploy host
         run: ssh-keyscan -H "${DEPLOY_HOST}" >> ~/.ssh/known_hosts
 
+      - name: Copy manifests to server
+        run: |
+          ssh "${DEPLOY_USER}@${DEPLOY_HOST}" "rm -rf /tmp/k8s-oci-deploy/webpages && mkdir -p /tmp/k8s-oci-deploy/webpages"
+          scp manifests/app/namespace.yaml \
+            manifests/app/webpages-deployment.yaml \
+            manifests/app/webpages-service.yaml \
+            manifests/app/webpages-ingress.yaml \
+            manifests/app/webpages-nginx-config.yaml \
+            "${DEPLOY_USER}@${DEPLOY_HOST}:/tmp/k8s-oci-deploy/webpages/"
+
       - name: Deploy to server2
         run: |
           IMAGE_REF="${IMAGE_NAME}:${GITHUB_SHA}"
           ssh "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "cd /root/k8s_oci && \
-             k3s kubectl apply -k manifests/app && \
+            "k3s kubectl apply -f /tmp/k8s-oci-deploy/webpages/namespace.yaml && \
+             k3s kubectl -n k8s-oci apply -f /tmp/k8s-oci-deploy/webpages/webpages-deployment.yaml -f /tmp/k8s-oci-deploy/webpages/webpages-service.yaml -f /tmp/k8s-oci-deploy/webpages/webpages-ingress.yaml -f /tmp/k8s-oci-deploy/webpages/webpages-nginx-config.yaml && \
              k3s kubectl -n k8s-oci patch deployment webpages --type=json -p='[{\"op\":\"replace\",\"path\":\"/spec/template/spec/volumes/0/image/reference\",\"value\":\"${IMAGE_REF}\"}]' && \
              k3s kubectl -n k8s-oci rollout status deployment/webpages --timeout=120s"
 
