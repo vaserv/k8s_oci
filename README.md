@@ -45,3 +45,4 @@ This repo starts with two things:
 
 - Workflows: `.github/workflows/oci-test.yml`, `.github/workflows/webpages.yml`
 - Required secret for deploys: `SERVER2_SSH_KEY`
+- The deploy keypair was generated for this setup; the private key is at `/private/tmp/k8s_oci_server2_deploy_key` and the public key is already installed on `server2.rghf.nl` for `root`.
