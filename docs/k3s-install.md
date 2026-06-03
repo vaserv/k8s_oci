@@ -18,6 +18,11 @@ The goal is a small-footprint cluster that still supports:
 - `metrics-server`
 
 `servicelb` stays enabled because it is what exposes the single-node ingress on ports `80` and `443`.
+The `/oci_test` demo route also requires Kubernetes v1.36 or newer because it uses the `image` volume source.
+
+## Swap
+
+This server gets a 2 GB swapfile before Kubernetes is installed. That gives the node a little breathing room under pressure without changing the disk layout.
 
 ## Install steps
 

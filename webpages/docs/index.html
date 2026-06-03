@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Docs - rghf webpages</title>
+    <link rel="stylesheet" href="/webpages/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/webpages/">Home</a>
+        <a href="/webpages/docs/">Docs</a>
+        <a href="/webpages/blog/">Blog</a>
+        <a href="/webpages/docs/template/">Template</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/webpages/">Home</a>
+        <span>/</span>
+        <span>Docs</span>
+      </div>
+      <section class="hero">
+        <p class="kicker">Documentation</p>
+        <h1>Wrap-around documentation for the hosted site</h1>
+        <p class="lede">
+          These pages collect the operational notes that matter for the self-hosted cluster,
+          the OCI image workflow, and the reusable template that future examples will copy.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <strong><a href="/webpages/docs/deployment-plan/">Deployment plan</a></strong>
+          <p>Cluster bootstrap, TLS, app rollout, and the new docs site.</p>
+        </article>
+        <article class="card">
+          <strong><a href="/webpages/docs/k3s-install/">K3s install</a></strong>
+          <p>The 2 GB server install path, swap setup, and the lightweight k3s choices.</p>
+        </article>
+        <article class="card">
+          <strong><a href="/webpages/docs/oci-image-demo/">OCI demo</a></strong>
+          <p>The hello-world image mounted through Kubernetes 1.36 image volumes.</p>
+        </article>
+        <article class="card">
+          <strong><a href="/webpages/docs/template/">Template</a></strong>
+          <p>The starter layout for new HTML sites and future demo workloads.</p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

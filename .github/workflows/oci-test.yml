@@ -1,0 +1,99 @@
+name: oci-test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "oci-test/**"
+      - "manifests/app/oci-test-*.yaml"
+      - ".github/workflows/oci-test.yml"
+  pull_request:
+    paths:
+      - "oci-test/**"
+      - "manifests/app/oci-test-*.yaml"
+      - ".github/workflows/oci-test.yml"
+
+env:
+  IMAGE_NAME: ghcr.io/vaserv/k8s-oci-hello-html
+  DEPLOY_HOST: server2.rghf.nl
+  DEPLOY_USER: root
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t "${IMAGE_NAME}:${GITHUB_SHA}" oci-test
+
+      - name: Validate image contents
+        run: |
+          image_tar=$(mktemp)
+          docker save "${IMAGE_NAME}:${GITHUB_SHA}" -o "${image_tar}"
+          python - "${image_tar}" <<'PY'
+          import json
+          import sys
+          import tarfile
+
+          with tarfile.open(sys.argv[1]) as archive:
+              manifest = json.load(archive.extractfile("manifest.json"))
+              layer_name = manifest[0]["Layers"][0]
+              with tarfile.open(fileobj=archive.extractfile(layer_name)) as layer:
+                  content = layer.extractfile("index.html").read().decode("utf-8")
+          if "hello world" not in content:
+              raise SystemExit("hello world not found in index.html")
+          PY
+
+  publish-and-deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        run: |
+          docker build -t "${IMAGE_NAME}:${GITHUB_SHA}" -t "${IMAGE_NAME}:latest" oci-test
+          docker push "${IMAGE_NAME}:${GITHUB_SHA}"
+          docker push "${IMAGE_NAME}:latest"
+
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SERVER2_SSH_KEY }}
+
+      - name: Trust deploy host
+        run: ssh-keyscan -H "${DEPLOY_HOST}" >> ~/.ssh/known_hosts
+
+      - name: Deploy to server2
+        run: |
+          IMAGE_REF="${IMAGE_NAME}:${GITHUB_SHA}"
+          ssh "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "cd /root/k8s_oci && \
+             k3s kubectl apply -k manifests/app && \
+             k3s kubectl -n k8s-oci patch deployment oci-test --type=json -p='[{\"op\":\"replace\",\"path\":\"/spec/template/spec/volumes/0/image/reference\",\"value\":\"${IMAGE_REF}\"}]' && \
+             k3s kubectl -n k8s-oci rollout status deployment/oci-test --timeout=120s"
+
+      - name: Verify public route
+        run: |
+          for _ in 1 2 3 4 5 6 7 8 9 10; do
+            if curl -fsS https://${DEPLOY_HOST}/oci_test; then
+              exit 0
+            fi
+            sleep 3
+          done
+          exit 1

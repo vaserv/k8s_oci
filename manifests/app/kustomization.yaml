@@ -10,3 +10,11 @@ resources:
   - service.yaml
   - ingress.yaml
   - certificate.yaml
+  - oci-test-deployment.yaml
+  - oci-test-service.yaml
+  - oci-test-ingress.yaml
+  - oci-test-nginx-config.yaml
+  - webpages-deployment.yaml
+  - webpages-service.yaml
+  - webpages-ingress.yaml
+  - webpages-nginx-config.yaml

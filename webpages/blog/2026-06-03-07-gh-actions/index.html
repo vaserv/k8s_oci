@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Step 7 - rghf webpages</title>
+    <link rel="stylesheet" href="/webpages/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/webpages/">Home</a>
+        <a href="/webpages/docs/">Docs</a>
+        <a href="/webpages/blog/">Blog</a>
+        <a href="/webpages/docs/template/">Template</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/webpages/">Home</a>
+        <span>/</span>
+        <a href="/webpages/blog/">Blog</a>
+        <span>/</span>
+        <span>Step 7</span>
+      </div>
+      <section class="hero">
+        <p class="kicker">Blog</p>
+        <h1>Step 7: GitHub Actions for build and deploy</h1>
+        <p class="lede">
+          The workflow now builds the site image, pushes it to GHCR, updates the live cluster,
+          and checks the public route before the job exits.
+        </p>
+      </section>
+
+      <div class="card">
+        <strong>Pipeline shape</strong>
+        <ul>
+          <li>Build the HTML image from the repository content.</li>
+          <li>Validate the image includes the expected pages.</li>
+          <li>Push SHA-tagged and latest images to GHCR.</li>
+          <li>Patch the live image volume and wait for rollout.</li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Step 5 - rghf webpages</title>
+    <link rel="stylesheet" href="/webpages/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/webpages/">Home</a>
+        <a href="/webpages/docs/">Docs</a>
+        <a href="/webpages/blog/">Blog</a>
+        <a href="/webpages/docs/template/">Template</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/webpages/">Home</a>
+        <span>/</span>
+        <a href="/webpages/blog/">Blog</a>
+        <span>/</span>
+        <span>Step 5</span>
+      </div>
+      <section class="hero">
+        <p class="kicker">Blog</p>
+        <h1>Step 5: Hosting the docs as a site</h1>
+        <p class="lede">
+          The docs are no longer just repository files. They are now packaged into the
+          <code>/webpages</code> route as static HTML so the server itself can serve the operational notes.
+        </p>
+      </section>
+
+      <div class="card">
+        <strong>What changed</strong>
+        <ul>
+          <li>A browsable docs index now sits behind HTTPS on the live server.</li>
+          <li>The deployment keeps the root site untouched.</li>
+          <li>The content is plain HTML so the image stays small and predictable.</li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>

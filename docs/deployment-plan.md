@@ -22,7 +22,10 @@ HTTPS terminates at the cluster edge. The app itself stays private inside the cl
 3. Update the host OS.
    - Install security updates.
    - Reboot if required.
-4. Create a non-root admin user for day-to-day access.
+4. Add a 2 GB swapfile.
+   - Enable it immediately.
+   - Persist it in `/etc/fstab`.
+5. Create a non-root admin user for day-to-day access.
    - Keep `root` for break-glass access only.
 
 Example host prep commands:
@@ -71,11 +74,15 @@ kubectl apply -k manifests/infra/
 ## Phase 4: App deployment
 
 1. Build the frontend image as an OCI image.
-2. Push the image to a registry.
-3. Deploy the app as a `Deployment`.
-4. Expose it with a `Service`.
-5. Route traffic with an `Ingress`.
-6. Validate HTTPS end-to-end.
+2. Add the `oci_test` demo workload under `https://server2.rghf.nl/oci_test` using a Kubernetes 1.36 `image` volume.
+3. Add the `webpages` site under `https://server2.rghf.nl/webpages` so the docs are visible from the cluster.
+4. Push the images to GHCR with the commit SHA tag.
+5. Deploy each app as a `Deployment`.
+6. Expose each one with a `Service`.
+7. Route traffic with an `Ingress`.
+8. Validate HTTPS end-to-end.
+
+This demo route depends on Kubernetes v1.36 or newer because the HTML is mounted from an OCI image volume instead of being baked into a compiled app binary.
 
 Example app rollout:
 
@@ -94,8 +101,8 @@ kubectl rollout status deployment/web -n k8s-oci
 
 ## Phase 6: Later work
 
-- CI/CD
 - GitOps
 - DNS automation
 - Multi-environment promotion
 - Better rollout strategy
+- Move the `webpages` route to `www.rghf.nl` when the public home page is ready

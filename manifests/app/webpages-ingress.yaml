@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webpages
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-live
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - server2.rghf.nl
+      secretName: web-tls
+  rules:
+    - host: server2.rghf.nl
+      http:
+        paths:
+          - path: /webpages
+            pathType: Prefix
+            backend:
+              service:
+                name: webpages
+                port:
+                  number: 80

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>K3s install - rghf webpages</title>
+    <link rel="stylesheet" href="/webpages/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/webpages/">Home</a>
+        <a href="/webpages/docs/">Docs</a>
+        <a href="/webpages/blog/">Blog</a>
+        <a href="/webpages/docs/template/">Template</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/webpages/">Home</a>
+        <span>/</span>
+        <a href="/webpages/docs/">Docs</a>
+        <span>/</span>
+        <span>K3s install</span>
+      </div>
+      <section class="hero">
+        <p class="kicker">Platform</p>
+        <h1>K3s install for the 2 GB server</h1>
+        <p class="lede">
+          The live node is deliberately light. The install path keeps the cluster small,
+          adds swap, and leaves room for the site workloads and ingress controller.
+        </p>
+      </section>
+
+      <div class="card">
+        <strong>Key choices</strong>
+        <ul>
+          <li>k3s on the host instead of a full Kubernetes distribution.</li>
+          <li>2 GB swap enabled before the cluster comes up.</li>
+          <li>Traefik stays in place for the MVP ingress path.</li>
+          <li>Image volume workloads are only used where Kubernetes 1.36 is required.</li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>
