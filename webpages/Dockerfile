@@ -1,2 +1,2 @@
 FROM scratch
-COPY . /webpages/
+COPY index.html assets/ blog/ docs/ roadmap/ services/ /

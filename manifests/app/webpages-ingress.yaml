@@ -8,13 +8,13 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - server2.rghf.nl
+        - www.rghf.nl
       secretName: web-tls
   rules:
-    - host: server2.rghf.nl
+    - host: www.rghf.nl
       http:
         paths:
-          - path: /webpages
+          - path: /
             pathType: Prefix
             backend:
               service:

@@ -6,7 +6,7 @@ Assumption: the server is reachable on the public internet, and DNS for the app 
 
 ## Target shape
 
-`DNS -> server2.rghf.nl -> ingress controller -> Kubernetes Service -> app Pods`
+`DNS -> www.rghf.nl -> ingress controller -> Kubernetes Service -> app Pods`
 
 HTTPS terminates at the cluster edge. The app itself stays private inside the cluster network.
 
@@ -75,7 +75,7 @@ kubectl apply -k manifests/infra/
 
 1. Build the frontend image as an OCI image.
 2. Add the `oci_test` demo workload under `https://server2.rghf.nl/oci_test` using a Kubernetes 1.36 `image` volume.
-3. Add the `webpages` site under `https://server2.rghf.nl/webpages` so the docs are visible from the cluster.
+3. Add the `webpages` site under `https://www.rghf.nl` so the docs are visible from the cluster.
 4. Push the images to GHCR with the commit SHA tag.
 5. Deploy each app as a `Deployment`.
 6. Expose each one with a `Service`.

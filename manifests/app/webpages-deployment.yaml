@@ -20,13 +20,13 @@ spec:
             - containerPort: 80
           readinessProbe:
             httpGet:
-              path: /webpages/
+              path: /
               port: 80
             initialDelaySeconds: 3
             periodSeconds: 5
           livenessProbe:
             httpGet:
-              path: /webpages/
+              path: /
               port: 80
             initialDelaySeconds: 10
             periodSeconds: 10

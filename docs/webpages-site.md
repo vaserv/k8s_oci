@@ -1,6 +1,6 @@
 # Webpages Site
 
-`/webpages` is the hosted wrapper for the project documentation and the future `www.rghf.nl`
+`https://www.rghf.nl` is the hosted wrapper for the project documentation and the future public
 home pages.
 
 ## What it contains
@@ -18,14 +18,14 @@ runs the workloads.
 
 ## Live route
 
-`https://server2.rghf.nl/webpages`
+`https://www.rghf.nl`
 
 ## Layout
 
-- `webpages/index.html` is the landing page
-- `webpages/docs/` contains the hosted docs
-- `webpages/blog/` contains the build log
-- `webpages/assets/site.css` holds the shared styling
+- `index.html` is the landing page
+- `docs/` contains the hosted docs
+- `blog/` contains the build log
+- `assets/site.css` holds the shared styling
 
 ## Deployment
 

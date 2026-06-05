@@ -11,15 +11,7 @@ data:
       root /usr/share/nginx/html;
       index index.html;
 
-      location = /webpages {
-        try_files /webpages/index.html =404;
-      }
-
-      location = /webpages/ {
-        try_files $uri $uri/ /webpages/index.html;
-      }
-
       location / {
-        try_files $uri $uri/ /webpages/index.html;
+        try_files $uri $uri/ /index.html;
       }
     }
