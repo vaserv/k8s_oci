@@ -101,12 +101,16 @@ jobs:
           load: false
           provenance: false
 
-  deploy_gate:
+  deploy:
     runs-on: ubuntu-latest
     needs: publish
-    outputs:
-      enabled: ${{ steps.check.outputs.enabled }}
+    permissions:
+      contents: read
+      packages: write
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
       - name: Check deploy secret
         id: check
         env:
@@ -118,26 +122,18 @@ jobs:
             echo "enabled=false" >> "$GITHUB_OUTPUT"
           fi
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: deploy_gate
-    if: needs.deploy_gate.outputs.enabled == 'true'
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
       - name: Add SSH key
+        if: steps.check.outputs.enabled == 'true'
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SERVER2_SSH_KEY }}
 
       - name: Trust deploy host
+        if: steps.check.outputs.enabled == 'true'
         run: ssh-keyscan -H "${DEPLOY_HOST}" >> ~/.ssh/known_hosts
 
       - name: Copy manifests to server
+        if: steps.check.outputs.enabled == 'true'
         run: |
           ssh "${DEPLOY_USER}@${DEPLOY_HOST}" "rm -rf /tmp/k8s-oci-deploy/webpages && mkdir -p /tmp/k8s-oci-deploy/webpages"
           scp manifests/app/namespace.yaml \
@@ -148,6 +144,7 @@ jobs:
             "${DEPLOY_USER}@${DEPLOY_HOST}:/tmp/k8s-oci-deploy/webpages/"
 
       - name: Deploy to server2
+        if: steps.check.outputs.enabled == 'true'
         run: |
           IMAGE_REF="${IMAGE_NAME}:${GITHUB_SHA}"
           ssh "${DEPLOY_USER}@${DEPLOY_HOST}" \
@@ -157,6 +154,7 @@ jobs:
              k3s kubectl -n k8s-oci rollout status deployment/webpages --timeout=120s"
 
       - name: Verify public route
+        if: steps.check.outputs.enabled == 'true'
         run: |
           for _ in 1 2 3 4 5 6 7 8 9 10; do
             if curl -fsS https://www.rghf.nl && \
