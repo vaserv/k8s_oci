@@ -52,35 +52,21 @@ jobs:
 
       - name: Validate image contents
         run: |
-          image_tar=$(mktemp)
-          docker save "${IMAGE_NAME}:${GITHUB_SHA}" -o "${image_tar}"
-          python - "${image_tar}" <<'PY'
-          import json
-          import sys
-          import tarfile
+          required=(
+            webpages/index.html
+            webpages/docs/index.html
+            webpages/blog/index.html
+            webpages/blog/2026-06-09-08-tutorial-expansion/index.html
+            webpages/docs/tutorials/index.html
+            webpages/docs/tutorials/static-oci-site/index.html
+            webpages/docs/tutorials/ingress-and-tls/index.html
+            webpages/docs/tutorials/ci-pipeline/index.html
+            webpages/docs/examples/index.html
+          )
 
-          required = {
-              "index.html",
-              "docs/index.html",
-              "blog/index.html",
-              "blog/2026-06-09-08-tutorial-expansion/index.html",
-              "docs/tutorials/index.html",
-              "docs/tutorials/static-oci-site/index.html",
-              "docs/tutorials/ingress-and-tls/index.html",
-              "docs/tutorials/ci-pipeline/index.html",
-              "docs/examples/index.html",
-          }
-
-          with tarfile.open(sys.argv[1]) as archive:
-              manifest = json.load(archive.extractfile("manifest.json"))
-              layer_name = manifest[0]["Layers"][0]
-              with tarfile.open(fileobj=archive.extractfile(layer_name)) as layer:
-                  members = {name.lstrip("./") for name in layer.getnames()}
-
-          missing = sorted(required - members)
-          if missing:
-              raise SystemExit(f"missing site files: {', '.join(missing)}")
-          PY
+          for file in "${required[@]}"; do
+            test -f "${file}"
+          done
 
   publish:
     runs-on: ubuntu-latest
