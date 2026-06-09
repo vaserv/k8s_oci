@@ -26,8 +26,18 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Build image
-        run: docker build -t "${IMAGE_NAME}:${GITHUB_SHA}" oci-test
+        uses: docker/build-push-action@v6
+        with:
+          context: oci-test
+          file: oci-test/Dockerfile
+          tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          load: true
+          push: false
+          provenance: false
 
       - name: Validate image contents
         run: |
@@ -58,6 +68,9 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
@@ -66,10 +79,16 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push image
-        run: |
-          docker build -t "${IMAGE_NAME}:${GITHUB_SHA}" -t "${IMAGE_NAME}:latest" oci-test
-          docker push "${IMAGE_NAME}:${GITHUB_SHA}"
-          docker push "${IMAGE_NAME}:latest"
+        uses: docker/build-push-action@v6
+        with:
+          context: oci-test
+          file: oci-test/Dockerfile
+          tags: |
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ${{ env.IMAGE_NAME }}:latest
+          push: true
+          load: false
+          provenance: false
 
       - name: Add SSH key
         uses: webfactory/ssh-agent@v0.9.0
