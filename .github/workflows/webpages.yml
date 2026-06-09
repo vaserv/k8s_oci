@@ -75,7 +75,7 @@ jobs:
               manifest = json.load(archive.extractfile("manifest.json"))
               layer_name = manifest[0]["Layers"][0]
               with tarfile.open(fileobj=archive.extractfile(layer_name)) as layer:
-                  members = set(layer.getnames())
+                  members = {name.lstrip("./") for name in layer.getnames()}
 
           missing = sorted(required - members)
           if missing:
