@@ -136,6 +136,26 @@ li + li {
   margin-top: 0.35rem;
 }
 
+pre {
+  margin: 1rem 0 0;
+  padding: 1rem;
+  overflow-x: auto;
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 10px;
+  border: 1px solid #1e293b;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.95em;
+}
+
+pre code {
+  color: inherit;
+  white-space: pre;
+}
+
 footer {
   padding: 1rem 0 2.5rem;
   color: var(--muted);

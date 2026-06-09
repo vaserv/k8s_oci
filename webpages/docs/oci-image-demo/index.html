@@ -37,6 +37,22 @@
         <strong>Route</strong>
         <p><code>https://www.rghf.nl/oci_test</code></p>
       </div>
+
+      <div class="card">
+        <strong>Example steps</strong>
+        <pre><code>docker build -t ghcr.io/your-org/hello-html:local oci-test
+docker push ghcr.io/your-org/hello-html:local
+kubectl -n k8s-oci rollout restart deployment/oci-test
+curl -fsS https://www.rghf.nl/oci_test</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>What to keep out</strong>
+        <p>
+          Do not bake secrets, private keys, or environment-specific values into the OCI image.
+          Keep the image public only if the content is meant to be public.
+        </p>
+      </div>
     </main>
   </body>
 </html>

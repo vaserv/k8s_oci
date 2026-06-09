@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ingress and TLS - rghf webpages</title>
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/tutorials/">Tutorials</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/docs/tutorials/">Tutorials</a>
+        <span>/</span>
+        <span>Ingress and TLS</span>
+      </div>
+      <section class="hero">
+        <p class="kicker">Tutorial</p>
+        <h1>Expose a service with ingress and TLS</h1>
+        <p class="lede">
+          This pattern keeps the service internal, puts Traefik at the edge, and forces all
+          browser traffic through HTTPS.
+        </p>
+      </section>
+
+      <div class="card">
+        <strong>Checklist</strong>
+        <ul>
+          <li>Create a `Service` that targets the workload.</li>
+          <li>Add an `Ingress` for the hostname.</li>
+          <li>Bind a `Certificate` to the same hostnames.</li>
+          <li>Add a redirect middleware so HTTP is not left open.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <strong>Example commands</strong>
+        <pre><code>kubectl apply -k manifests/app
+kubectl -n k8s-oci get ingress webpages
+kubectl -n k8s-oci get certificate web-tls
+curl -I http://rghf.nl
+curl -I https://rghf.nl</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Operational note</strong>
+        <p>
+          Prefer redirecting at the ingress layer. That keeps the application image simple and
+          makes the redirect policy visible in the cluster manifests instead of buried in app code.
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

@@ -36,11 +36,26 @@
       <div class="card">
         <strong>Included pieces</strong>
         <ul>
-          <li>Static site files under <code>site/</code>.</li>
+          <li>Static site files at the image root.</li>
           <li>A scratch-based Dockerfile that copies the HTML into an OCI image.</li>
           <li>Example nginx deployment, service, and ingress manifests.</li>
           <li>A deploy workflow pattern that can be reused for future sites.</li>
         </ul>
+      </div>
+
+      <div class="card">
+        <strong>Example copy path</strong>
+        <pre><code>cp -R webpages templates/new-site
+cp -R manifests/app templates/new-site/manifests
+find templates/new-site -maxdepth 2 -type f | sort</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Use case</strong>
+        <p>
+          This template is the smallest useful starting point for a new hosted HTML site:
+          static files, one ingress, one service, and one image build path.
+        </p>
       </div>
     </main>
   </body>

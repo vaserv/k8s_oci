@@ -42,6 +42,25 @@
           <li>Image volume workloads are only used where Kubernetes 1.36 is required.</li>
         </ul>
       </div>
+
+      <div class="card">
+        <strong>Example install flow</strong>
+        <pre><code>ssh root@server2.example.com
+fallocate -l 2G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+curl -fsSL https://get.k3s.io | sh -
+k3s kubectl get nodes</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Why the lightweight path helps</strong>
+        <p>
+          Small servers run more predictably when the base platform stays narrow. Swap buys
+          breathing room, and k3s avoids the overhead of a full upstream control plane.
+        </p>
+      </div>
     </main>
   </body>
 </html>

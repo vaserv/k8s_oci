@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CI pipeline - rghf webpages</title>
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/tutorials/">Tutorials</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/docs/tutorials/">Tutorials</a>
+        <span>/</span>
+        <span>CI pipeline</span>
+      </div>
+      <section class="hero">
+        <p class="kicker">Tutorial</p>
+        <h1>Add a build-and-deploy pipeline</h1>
+        <p class="lede">
+          The pipeline should prove the artifact is valid, ship an immutable image tag, and
+          check the live route before it reports success.
+        </p>
+      </section>
+
+      <div class="card">
+        <strong>Flow</strong>
+        <ul>
+          <li>Build the image from the static site tree.</li>
+          <li>Run a content validation step.</li>
+          <li>Push a SHA tag and optionally `latest`.</li>
+          <li>Roll the Kubernetes deployment or patch the image reference.</li>
+          <li>Verify the URL returns 200.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <strong>Example workflow snippet</strong>
+        <pre><code>docker build -t ghcr.io/your-org/site:${GITHUB_SHA} webpages
+docker push ghcr.io/your-org/site:${GITHUB_SHA}
+ssh "${DEPLOY_USER}@${DEPLOY_HOST}" \
+  "k3s kubectl -n k8s-oci rollout status deployment/webpages --timeout=120s"
+curl -fsS https://rghf.nl</code></pre>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Build a static OCI site - rghf webpages</title>
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/tutorials/">Tutorials</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/docs/tutorials/">Tutorials</a>
+        <span>/</span>
+        <span>Static OCI site</span>
+      </div>
+      <section class="hero">
+        <p class="kicker">Tutorial</p>
+        <h1>Build a static OCI site</h1>
+        <p class="lede">
+          Use this when you only need HTML, CSS, and a tiny image that can be mounted by
+          Kubernetes without a compiled runtime.
+        </p>
+      </section>
+
+      <div class="card">
+        <strong>Steps</strong>
+        <ul>
+          <li>Create an `index.html` and a shared stylesheet.</li>
+          <li>Package the files into a minimal OCI image.</li>
+          <li>Run the image locally and check the page content.</li>
+          <li>Push the image to a registry once the output is stable.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <strong>Example commands</strong>
+        <pre><code>mkdir -p site/assets
+cp index.html site/
+cp assets/site.css site/assets/
+docker build -t ghcr.io/your-org/static-site:local .
+docker run --rm -p 8080:80 ghcr.io/your-org/static-site:local
+curl -fsS http://localhost:8080/</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Why it works</strong>
+        <p>
+          Static HTML keeps the deployment deterministic. There is no application server to
+          warm up, no package manager, and no runtime dependency tree to patch on every release.
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

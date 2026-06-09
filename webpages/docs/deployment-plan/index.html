@@ -50,6 +50,24 @@
         The server is small, so the deployment stays plain: nginx, Kubernetes Services,
         Traefik ingress, and static content pulled from OCI images.
       </p>
+
+      <div class="card">
+        <strong>Example command sequence</strong>
+        <pre><code>ssh root@server2.example.com
+curl -fsSL https://get.k3s.io | sh -
+kubectl apply -k manifests/infra
+kubectl apply -k manifests/app
+kubectl -n k8s-oci rollout status deployment/webpages</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Practical checks</strong>
+        <ul>
+          <li>Confirm DNS points at the public host before issuing certificates.</li>
+          <li>Check that the cluster has enough swap for the workload mix.</li>
+          <li>Verify the public route over HTTPS before publishing a change note.</li>
+        </ul>
+      </div>
     </main>
   </body>
 </html>

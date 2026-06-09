@@ -52,8 +52,12 @@ jobs:
               "index.html",
               "docs/index.html",
               "blog/index.html",
-              "services/index.html",
-              "roadmap/index.html",
+              "blog/2026-06-09-08-tutorial-expansion/index.html",
+              "docs/tutorials/index.html",
+              "docs/tutorials/static-oci-site/index.html",
+              "docs/tutorials/ingress-and-tls/index.html",
+              "docs/tutorials/ci-pipeline/index.html",
+              "docs/examples/index.html",
           }
 
           with tarfile.open(sys.argv[1]) as archive:
@@ -121,7 +125,10 @@ jobs:
       - name: Verify public route
         run: |
           for _ in 1 2 3 4 5 6 7 8 9 10; do
-            if curl -fsS https://www.rghf.nl; then
+            if curl -fsS https://www.rghf.nl && \
+               curl -fsS https://www.rghf.nl/docs/tutorials/ && \
+               curl -fsS https://www.rghf.nl/docs/examples/ && \
+               curl -fsS https://www.rghf.nl/blog/; then
               exit 0
             fi
             sleep 3

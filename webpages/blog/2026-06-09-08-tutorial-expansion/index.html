@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Step 8 - rghf webpages</title>
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/tutorials/">Tutorials</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/blog/">Blog</a>
+        <span>/</span>
+        <span>Step 8</span>
+      </div>
+      <section class="hero">
+        <p class="kicker">Blog</p>
+        <h1>Step 8: Expanding the tutorial library</h1>
+        <p class="lede">
+          The site now has a proper tutorial section and a separate examples page so the
+          operational content is easier to browse and reuse.
+        </p>
+      </section>
+
+      <div class="card">
+        <strong>What was added</strong>
+        <ul>
+          <li>A tutorial index for step-by-step setup guides.</li>
+          <li>Pages for static site builds, ingress and TLS, and CI pipelines.</li>
+          <li>An examples page with copyable, sanitized snippets.</li>
+          <li>Readable code blocks so the examples are useful on first view.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <strong>Example commands</strong>
+        <pre><code>kubectl apply -k manifests/app
+curl -fsS https://rghf.nl/docs/tutorials/
+curl -fsS https://rghf.nl/docs/examples/
+curl -fsS https://rghf.nl/blog/</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Content rule</strong>
+        <p>
+          Keep tutorial content concrete. Commands, path names, and checks belong here; private
+          values, credentials, and environment-specific secrets do not.
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

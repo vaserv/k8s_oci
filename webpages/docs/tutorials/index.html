@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tutorials - rghf webpages</title>
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/tutorials/">Tutorials</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/docs/">Docs</a>
+        <span>/</span>
+        <span>Tutorials</span>
+      </div>
+      <section class="hero">
+        <p class="kicker">Tutorials</p>
+        <h1>Hands-on guides</h1>
+        <p class="lede">
+          These pages walk through the parts of the stack that are reusable in other projects:
+          static content, ingress and TLS, and the deployment pipeline.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <strong><a href="/docs/tutorials/static-oci-site/">Build a static OCI site</a></strong>
+          <p>Create a small HTML image and verify it locally before it reaches Kubernetes.</p>
+        </article>
+        <article class="card">
+          <strong><a href="/docs/tutorials/ingress-and-tls/">Expose it with ingress and TLS</a></strong>
+          <p>Wire the service through Traefik and force HTTP to HTTPS.</p>
+        </article>
+        <article class="card">
+          <strong><a href="/docs/tutorials/ci-pipeline/">Add a build-and-deploy pipeline</a></strong>
+          <p>Use a SHA-tagged image and a rollout check in GitHub Actions.</p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
