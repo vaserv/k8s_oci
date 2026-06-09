@@ -62,6 +62,9 @@ jobs:
             webpages/docs/tutorials/ingress-and-tls/index.html
             webpages/docs/tutorials/ci-pipeline/index.html
             webpages/docs/examples/index.html
+            webpages/docs/examples/static-site/index.html
+            webpages/docs/examples/ingress/index.html
+            webpages/docs/examples/workflow/index.html
           )
 
           for file in "${required[@]}"; do

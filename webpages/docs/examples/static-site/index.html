@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Static site example - rghf webpages</title>
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/examples/">Examples</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/docs/">Docs</a>
+        <span>/</span>
+        <a href="/docs/examples/">Examples</a>
+        <span>/</span>
+        <span>Static site</span>
+      </div>
+
+      <section class="hero">
+        <p class="kicker">Example</p>
+        <h1>Minimal static site image</h1>
+        <p class="lede">
+          A static site should be simple: one HTML file, a stylesheet, and a Dockerfile that
+          copies the files directly into the image.
+        </p>
+      </section>
+
+      <div class="card">
+        <strong>Files</strong>
+        <pre><code>webpages/
+  index.html
+  assets/site.css
+  docs/
+  blog/
+  Dockerfile</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Dockerfile</strong>
+        <pre><code>FROM scratch
+COPY index.html assets/ blog/ docs/ /</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Build and inspect</strong>
+        <pre><code>docker build -t ghcr.io/your-org/site:dev webpages
+docker save ghcr.io/your-org/site:dev -o /tmp/site.tar
+tar -tf /tmp/site.tar | head</code></pre>
+      </div>
+    </main>
+  </body>
+</html>

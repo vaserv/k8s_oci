@@ -24,29 +24,47 @@
         <span>/</span>
         <span>Examples</span>
       </div>
+
       <section class="hero">
         <p class="kicker">Examples</p>
-        <h1>Reference snippets</h1>
+        <h1>Reusable patterns you can copy</h1>
         <p class="lede">
-          These are the small, reusable examples that are safe to copy into a new site or
-          a new workload without dragging private values along with them.
+          This page collects the small building blocks behind the hosted site: a static HTML
+          container, a path-based ingress, and a deployment workflow. The snippets stay generic
+          so they can be reused without exposing private values.
         </p>
       </section>
 
       <section class="grid">
         <article class="card">
-          <strong>Minimal Dockerfile</strong>
-          <p>Static files copied into an OCI image with no extra runtime layers.</p>
+          <strong><a href="/docs/examples/static-site/">Static site image</a></strong>
+          <p>Minimal OCI image layout for a plain HTML site.</p>
         </article>
         <article class="card">
-          <strong>Ingress rule</strong>
-          <p>A single host on `/` with a redirect middleware and TLS certificate.</p>
+          <strong><a href="/docs/examples/ingress/">Ingress and TLS</a></strong>
+          <p>One host, one path, HTTPS redirect, and certificate wiring.</p>
         </article>
         <article class="card">
-          <strong>Workflow outline</strong>
-          <p>Build, validate, publish, and verify the live route.</p>
+          <strong><a href="/docs/examples/workflow/">GitHub Actions workflow</a></strong>
+          <p>Build, validate, push, and optionally deploy over SSH.</p>
         </article>
       </section>
+
+      <div class="card">
+        <strong>What the examples show</strong>
+        <ul>
+          <li>How to keep static content at the image root.</li>
+          <li>How to wire a public route without hard-coding secrets.</li>
+          <li>How to keep deploy logic separate from build validation.</li>
+          <li>How to reuse the same shape for future sites.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <strong>Copy path</strong>
+        <pre><code>cp -R webpages/docs/examples templates/examples
+find templates/examples -maxdepth 2 -type f | sort</code></pre>
+      </div>
     </main>
   </body>
 </html>

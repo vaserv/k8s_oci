@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ingress example - rghf webpages</title>
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/examples/">Examples</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/docs/">Docs</a>
+        <span>/</span>
+        <a href="/docs/examples/">Examples</a>
+        <span>/</span>
+        <span>Ingress</span>
+      </div>
+
+      <section class="hero">
+        <p class="kicker">Example</p>
+        <h1>Path-based ingress with HTTPS</h1>
+        <p class="lede">
+          The route is public, the redirect is enforced at ingress, and the certificate stays
+          separate from the application manifests.
+        </p>
+      </section>
+
+      <div class="card">
+        <strong>Ingress snippet</strong>
+        <pre><code>apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: k8s-oci-redirect@kubernetescrd
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - example.rghf.nl
+      secretName: example-tls
+  rules:
+    - host: example.rghf.nl
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: example
+                port:
+                  number: 80</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Redirect middleware</strong>
+        <pre><code>apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Verify</strong>
+        <pre><code>curl -I http://example.rghf.nl
+curl -I https://example.rghf.nl</code></pre>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Workflow example - rghf webpages</title>
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/examples/">Examples</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/docs/">Docs</a>
+        <span>/</span>
+        <a href="/docs/examples/">Examples</a>
+        <span>/</span>
+        <span>Workflow</span>
+      </div>
+
+      <section class="hero">
+        <p class="kicker">Example</p>
+        <h1>Build and publish workflow</h1>
+        <p class="lede">
+          The workflow should validate the site before publish, push immutable tags, and skip
+          deploy cleanly when no SSH secret is configured.
+        </p>
+      </section>
+
+      <div class="card">
+        <strong>Build steps</strong>
+        <pre><code>docker/setup-buildx-action
+docker/build-push-action
+docker/login-action</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Validation steps</strong>
+        <pre><code>test -f webpages/index.html
+test -f webpages/docs/examples/index.html
+test -f webpages/docs/examples/static-site/index.html</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Deploy guard</strong>
+        <pre><code>if [ -n "${SERVER2_SSH_KEY}" ]; then
+  echo "enabled=true" >> "$GITHUB_OUTPUT"
+else
+  echo "enabled=false" >> "$GITHUB_OUTPUT"
+fi</code></pre>
+      </div>
+    </main>
+  </body>
+</html>
