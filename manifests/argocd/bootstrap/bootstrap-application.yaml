@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k8s-oci-bootstrap
+  namespace: argocd
+spec:
+  project: k8s-oci
+  source:
+    repoURL: https://github.com/vaserv/k8s_oci.git
+    targetRevision: main
+    path: manifests/argocd/applications
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

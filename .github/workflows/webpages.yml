@@ -55,8 +55,10 @@ jobs:
           required=(
             webpages/index.html
             webpages/docs/index.html
+            webpages/docs/argocd/index.html
             webpages/blog/index.html
             webpages/blog/2026-06-09-08-tutorial-expansion/index.html
+            webpages/blog/2026-06-09-09-argocd-bootstrap/index.html
             webpages/docs/tutorials/index.html
             webpages/docs/tutorials/static-oci-site/index.html
             webpages/docs/tutorials/ingress-and-tls/index.html

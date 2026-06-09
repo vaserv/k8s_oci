@@ -23,6 +23,7 @@ This repo starts with two things:
 - Serving a hello-world demo at `/oci_test` from a Kubernetes 1.36 image volume
 - Serving the wrapped docs and future home pages at `https://www.rghf.nl`
 - Building and deploying the site images from GitHub Actions
+- Bootstrapping ArgoCD for GitOps rollouts
 - Writing the first blog posts that explain each phase
 
 ## What is deferred
@@ -39,6 +40,7 @@ This repo starts with two things:
 - [K3s install](docs/k3s-install.md)
 - [Webpages site](docs/webpages-site.md)
 - [OCI HTML template](docs/oci-html-template.md)
+- [ArgoCD bootstrap](docs/argocd-bootstrap.md)
 - [Blog index](blog/index.md)
 
 ## CI/CD
