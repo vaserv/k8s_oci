@@ -28,6 +28,7 @@ env:
   IMAGE_NAME: ghcr.io/vaserv/k8s-oci-webpages
   DEPLOY_HOST: server2.rghf.nl
   DEPLOY_USER: root
+  SERVER2_SSH_KEY: ${{ secrets.SERVER2_SSH_KEY }}
 
 jobs:
   test:
@@ -81,7 +82,7 @@ jobs:
               raise SystemExit(f"missing site files: {', '.join(missing)}")
           PY
 
-  publish-and-deploy:
+  publish:
     runs-on: ubuntu-latest
     needs: test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -113,6 +114,17 @@ jobs:
           push: true
           load: false
           provenance: false
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: publish
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && env.SERVER2_SSH_KEY != ''
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
 
       - name: Add SSH key
         uses: webfactory/ssh-agent@v0.9.0
