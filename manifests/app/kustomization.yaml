@@ -10,6 +10,7 @@ resources:
   - service.yaml
   - ingress.yaml
   - certificate.yaml
+  - redirect-middleware.yaml
   - oci-test-deployment.yaml
   - oci-test-service.yaml
   - oci-test-ingress.yaml

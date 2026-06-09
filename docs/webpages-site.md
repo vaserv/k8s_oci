@@ -1,7 +1,7 @@
 # Webpages Site
 
-`/webpages` is the hosted wrapper for the project documentation and the future `www.rghf.nl`
-home pages.
+`https://rghf.nl` and `https://www.rghf.nl` both point at the hosted homepage for the project
+documentation and the future public home pages.
 
 ## What it contains
 
@@ -18,16 +18,18 @@ runs the workloads.
 
 ## Live route
 
-`https://server2.rghf.nl/webpages`
+`https://rghf.nl`
 
 ## Layout
 
-- `webpages/index.html` is the landing page
-- `webpages/docs/` contains the hosted docs
-- `webpages/blog/` contains the build log
-- `webpages/assets/site.css` holds the shared styling
+- `index.html` is the landing page
+- `docs/` contains the hosted docs
+- `blog/` contains the build log
+- `assets/site.css` holds the shared styling
 
 ## Deployment
 
 The content is packaged into a tiny OCI image and mounted into an nginx container using the
 Kubernetes 1.36 `image` volume feature.
+
+HTTP requests are redirected to HTTPS by a Traefik `redirectScheme` middleware.

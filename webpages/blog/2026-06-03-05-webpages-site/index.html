@@ -3,24 +3,24 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Step 5 - rghf webpages</title>
-    <link rel="stylesheet" href="/webpages/assets/site.css" />
+    <title>Step 5 - rghf homepage</title>
+    <link rel="stylesheet" href="/assets/site.css" />
   </head>
   <body>
     <header>
-      <div class="brand">rghf webpages</div>
+      <div class="brand">rghf homepage</div>
       <nav>
-        <a href="/webpages/">Home</a>
-        <a href="/webpages/docs/">Docs</a>
-        <a href="/webpages/blog/">Blog</a>
-        <a href="/webpages/docs/template/">Template</a>
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/template/">Template</a>
       </nav>
     </header>
     <main class="content">
       <div class="breadcrumbs">
-        <a href="/webpages/">Home</a>
+        <a href="/">Home</a>
         <span>/</span>
-        <a href="/webpages/blog/">Blog</a>
+        <a href="/blog/">Blog</a>
         <span>/</span>
         <span>Step 5</span>
       </div>
@@ -29,7 +29,7 @@
         <h1>Step 5: Hosting the docs as a site</h1>
         <p class="lede">
           The docs are no longer just repository files. They are now packaged into the
-          <code>/webpages</code> route as static HTML so the server itself can serve the operational notes.
+          root site as static HTML so the server itself can serve the operational notes.
         </p>
       </section>
 
@@ -40,6 +40,23 @@
           <li>The deployment keeps the root site untouched.</li>
           <li>The content is plain HTML so the image stays small and predictable.</li>
         </ul>
+      </div>
+
+      <div class="card">
+        <strong>Commands used</strong>
+        <pre><code>kubectl -n k8s-oci get ingress webpages
+kubectl -n k8s-oci get certificate web-tls
+kubectl -n k8s-oci rollout status deployment/webpages
+curl -I https://rghf.nl
+curl -I https://www.rghf.nl</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Notes</strong>
+        <p>
+          Keep the site files root-relative when the domain is served at `/`. That avoids
+          broken links when the route changes from a subpath to the bare hostname.
+        </p>
       </div>
     </main>
   </body>

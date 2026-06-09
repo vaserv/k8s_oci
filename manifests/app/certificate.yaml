@@ -5,7 +5,8 @@ metadata:
 spec:
   secretName: web-tls
   dnsNames:
-    - server2.rghf.nl
+    - rghf.nl
+    - www.rghf.nl
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-live

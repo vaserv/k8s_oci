@@ -21,7 +21,7 @@ This repo starts with two things:
 - Publishing the app over HTTPS
 - Using OCI images for the workload
 - Serving a hello-world demo at `/oci_test` from a Kubernetes 1.36 image volume
-- Serving the wrapped docs and future home pages at `/webpages`
+- Serving the wrapped docs and future home pages at the root domain
 - Building and deploying the site images from GitHub Actions
 - Writing the first blog posts that explain each phase
 

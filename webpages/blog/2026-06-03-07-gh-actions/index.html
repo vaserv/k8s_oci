@@ -3,24 +3,24 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Step 7 - rghf webpages</title>
-    <link rel="stylesheet" href="/webpages/assets/site.css" />
+    <title>Step 7 - rghf homepage</title>
+    <link rel="stylesheet" href="/assets/site.css" />
   </head>
   <body>
     <header>
-      <div class="brand">rghf webpages</div>
+      <div class="brand">rghf homepage</div>
       <nav>
-        <a href="/webpages/">Home</a>
-        <a href="/webpages/docs/">Docs</a>
-        <a href="/webpages/blog/">Blog</a>
-        <a href="/webpages/docs/template/">Template</a>
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/template/">Template</a>
       </nav>
     </header>
     <main class="content">
       <div class="breadcrumbs">
-        <a href="/webpages/">Home</a>
+        <a href="/">Home</a>
         <span>/</span>
-        <a href="/webpages/blog/">Blog</a>
+        <a href="/blog/">Blog</a>
         <span>/</span>
         <span>Step 7</span>
       </div>
@@ -41,6 +41,23 @@
           <li>Push SHA-tagged and latest images to GHCR.</li>
           <li>Patch the live image volume and wait for rollout.</li>
         </ul>
+      </div>
+
+      <div class="card">
+        <strong>Example workflow steps</strong>
+        <pre><code>docker build -t ghcr.io/your-org/site:${GITHUB_SHA} webpages
+docker push ghcr.io/your-org/site:${GITHUB_SHA}
+ssh "${DEPLOY_USER}@${DEPLOY_HOST}" \
+  "kubectl -n k8s-oci rollout status deployment/webpages --timeout=120s"
+curl -fsS https://rghf.nl</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Why this matters</strong>
+        <p>
+          A SHA-tagged image gives you a repeatable rollout target. If a deploy breaks,
+          you can roll back to the previous digest without rebuilding the whole site.
+        </p>
       </div>
     </main>
   </body>

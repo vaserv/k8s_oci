@@ -3,26 +3,26 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>rghf webpages</title>
-    <link rel="stylesheet" href="/webpages/assets/site.css" />
+    <title>rghf homepage</title>
+    <link rel="stylesheet" href="/assets/site.css" />
   </head>
   <body>
     <header>
-      <div class="brand">rghf webpages</div>
+      <div class="brand">rghf homepage</div>
       <nav>
-        <a href="/webpages/">Home</a>
-        <a href="/webpages/docs/">Docs</a>
-        <a href="/webpages/blog/">Blog</a>
-        <a href="/webpages/docs/template/">Template</a>
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/template/">Template</a>
       </nav>
     </header>
     <main>
       <section class="hero">
-        <p class="kicker">Hosted on server2.rghf.nl</p>
-        <h1>Webpages for the future www.rghf.nl home.</h1>
+        <p class="kicker">Hosted on www.rghf.nl</p>
+        <h1>rghf homepage for docs, demos, and deployment notes.</h1>
         <p class="lede">
-          This path is the working copy of the public site. It hosts the deployment notes,
-          the reusable OCI HTML template, and the running blog that explains the build as it lands.
+          This site collects the live documentation, the rollout log, and the reusable HTML
+          templates that back the k3s workloads on server2.rghf.nl.
         </p>
       </section>
 
@@ -30,20 +30,20 @@
         <article class="card">
           <span class="pill">Docs</span>
           <strong>Deployment and platform notes</strong>
-          <p>The site wraps the existing documentation into a browsable, image-backed site.</p>
-          <a href="/webpages/docs/">Open the docs index</a>
+          <p>The operational notes for the cluster, ingress, TLS, and hosted routes.</p>
+          <a href="/docs/">Open the docs index</a>
         </article>
         <article class="card">
           <span class="pill">Blog</span>
           <strong>Build log</strong>
-          <p>Each step in the rollout gets a short post so the path stays auditable.</p>
-          <a href="/webpages/blog/">Read the blog index</a>
+          <p>Each deployment step is documented as it lands so the build stays auditable.</p>
+          <a href="/blog/">Read the blog index</a>
         </article>
         <article class="card">
           <span class="pill">Template</span>
           <strong>Reusable static OCI site</strong>
           <p>A small starter layout for future HTML sites mounted by Kubernetes image volumes.</p>
-          <a href="/webpages/docs/template/">Use the template</a>
+          <a href="/docs/template/">Use the template</a>
         </article>
         <article class="card">
           <span class="pill">Routes</span>
@@ -51,14 +51,14 @@
           <ul>
             <li><code>/</code> root site</li>
             <li><code>/oci_test</code> hello-world OCI demo</li>
-            <li><code>/webpages</code> wrapped docs and home site</li>
+            <li><code>/docs</code> hosted docs and notes</li>
           </ul>
         </article>
       </section>
     </main>
     <footer>
-      The content here is intentionally small and static. It is meant to be easy to publish,
-      easy to move, and easy to extend into the final www.rghf.nl front page.
+      The site stays small on purpose: static content, predictable routes, and no extra runtime
+      machinery beyond nginx and Kubernetes.
     </footer>
   </body>
 </html>

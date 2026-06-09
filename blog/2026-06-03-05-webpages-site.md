@@ -1,11 +1,11 @@
 # Step 5: Hosting the docs as a site
 
 The repository already had the source docs. The next step was to make them visible on the live
-server as a separate route.
+server as the public `rghf.nl` and `www.rghf.nl` site.
 
 ## What changed
 
-- A new `/webpages` route was added on `server2.rghf.nl`
+- A new public site was added on `rghf.nl` and `www.rghf.nl`
 - The docs were wrapped into a browsable HTML site
 - The site was packaged as a tiny OCI image
 - Nginx served the image through Kubernetes image volumes
