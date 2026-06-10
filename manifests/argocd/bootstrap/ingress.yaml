@@ -10,10 +10,10 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - argocd.rghf.nl
+        - argocd.fsck.me.uk
       secretName: argocd-server-tls
   rules:
-    - host: argocd.rghf.nl
+    - host: argocd.fsck.me.uk
       http:
         paths:
           - path: /

@@ -4,7 +4,7 @@ metadata:
   name: letsencrypt-live
 spec:
   acme:
-    email: admin@rghf.nl
+    email: admin@fsck.me.uk
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-live-account-key

@@ -6,8 +6,9 @@ if [ "$(id -u)" -ne 0 ]; then
   exit 1
 fi
 
-SERVER_NAME="${SERVER_NAME:-server2.rghf.nl}"
+SERVER_NAME="${SERVER_NAME:-server1.fsck.me.uk}"
 K3S_CHANNEL="${K3S_CHANNEL:-stable}"
+K3S_VERSION="${K3S_VERSION:-v1.36.1+k3s1}"
 SWAPFILE="${SWAPFILE:-/swapfile}"
 SWAPSIZE="${SWAPSIZE:-2G}"
 
@@ -33,10 +34,12 @@ EOF
 
 curl -sfL https://get.k3s.io | \
   INSTALL_K3S_CHANNEL="${K3S_CHANNEL}" \
+  INSTALL_K3S_VERSION="${K3S_VERSION}" \
   INSTALL_K3S_EXEC="server --config /etc/rancher/k3s/config.yaml" \
   sh -
 
 echo
 echo "k3s installation complete."
+echo "Version: ${K3S_VERSION}"
 echo "Kubeconfig: /etc/rancher/k3s/k3s.yaml"
 echo "Verify with: kubectl get nodes"

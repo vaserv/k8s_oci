@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: argocd-server-tls
   dnsNames:
-    - argocd.rghf.nl
+    - argocd.fsck.me.uk
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-live

@@ -8,10 +8,21 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - www.rghf.nl
+        - fsck.me.uk
+        - www.fsck.me.uk
       secretName: web-tls
   rules:
-    - host: www.rghf.nl
+    - host: fsck.me.uk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webpages
+                port:
+                  number: 80
+    - host: www.fsck.me.uk
       http:
         paths:
           - path: /

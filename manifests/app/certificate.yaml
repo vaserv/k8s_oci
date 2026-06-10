@@ -5,8 +5,8 @@ metadata:
 spec:
   secretName: web-tls
   dnsNames:
-    - server2.rghf.nl
-    - www.rghf.nl
+    - fsck.me.uk
+    - www.fsck.me.uk
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-live

@@ -45,12 +45,8 @@
 
       <div class="card">
         <strong>Example install flow</strong>
-        <pre><code>ssh root@server2.example.com
-fallocate -l 2G /swapfile
-chmod 600 /swapfile
-mkswap /swapfile
-swapon /swapfile
-curl -fsSL https://get.k3s.io | sh -
+        <pre><code>ssh root@server1.fsck.me.uk
+SERVER_NAME=server1.fsck.me.uk sh scripts/install-k3s.sh
 k3s kubectl get nodes</code></pre>
       </div>
 

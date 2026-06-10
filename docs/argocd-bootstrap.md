@@ -13,7 +13,7 @@ kubectl apply -k manifests/argocd/bootstrap
 ## What it installs
 
 - the ArgoCD control plane in its own namespace
-- an HTTPS ingress for `argocd.rghf.nl`
+- an HTTPS ingress for `argocd.fsck.me.uk`
 - a certificate managed by cert-manager
 - a project scoped to this repository
 - a root Application that points to the child Application manifests

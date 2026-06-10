@@ -3,10 +3,20 @@ kind: Kustomization
 
 resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-  - argocd-cm.yaml
-  - argocd-cmd-params-cm.yaml
   - redirect-middleware.yaml
   - certificate.yaml
   - ingress.yaml
   - app-project.yaml
   - bootstrap-application.yaml
+
+patches:
+  - path: argocd-cm.yaml
+    target:
+      kind: ConfigMap
+      name: argocd-cm
+      namespace: argocd
+  - path: argocd-cmd-params-cm.yaml
+    target:
+      kind: ConfigMap
+      name: argocd-cmd-params-cm
+      namespace: argocd

@@ -1,6 +1,6 @@
 # k8s_oci
 
-Concrete MVP for a self-hosted Kubernetes web app on `server2.rghf.nl`.
+Concrete MVP for a self-hosted Kubernetes web app on `server1.fsck.me.uk`.
 
 This repo starts with two things:
 
@@ -21,9 +21,10 @@ This repo starts with two things:
 - Publishing the app over HTTPS
 - Using OCI images for the workload
 - Serving a hello-world demo at `/oci_test` from a Kubernetes 1.36 image volume
-- Serving the wrapped docs and future home pages at `https://www.rghf.nl`
+- Serving the wrapped docs and future home pages at `https://fsck.me.uk` and `https://www.fsck.me.uk`
 - Building and deploying the site images from GitHub Actions
 - Bootstrapping ArgoCD for GitOps rollouts
+- Installing operator tooling such as Homebrew on Linux and `k9s`
 - Writing the first blog posts that explain each phase
 
 ## What is deferred
@@ -32,7 +33,7 @@ This repo starts with two things:
 - Multi-node failover
 - Advanced observability
 - Autoscaling beyond the basic MVP
-- Full DNS automation for the final `www.rghf.nl` handoff
+- Full DNS automation for the final `rghf.nl` handoff
 
 ## Docs
 
@@ -41,10 +42,12 @@ This repo starts with two things:
 - [Webpages site](docs/webpages-site.md)
 - [OCI HTML template](docs/oci-html-template.md)
 - [ArgoCD bootstrap](docs/argocd-bootstrap.md)
+- [Server1 bootstrap](docs/server1-bootstrap.md)
 - [Blog index](blog/index.md)
+- [Operator tools install](scripts/install-ops-tools.sh)
 
 ## CI/CD
 
 - Workflows: `.github/workflows/oci-test.yml`, `.github/workflows/webpages.yml`
-- Required secret for deploys: `SERVER2_SSH_KEY`
-- The deploy keypair was generated for this setup; the private key is at `/private/tmp/k8s_oci_server2_deploy_key` and the public key is already installed on `server2.rghf.nl` for `root`.
+- Required secret for deploys: `DEPLOY_SSH_KEY`
+- The deploy keypair was generated for this setup; if you rotate to a new server key, keep the replacement out of the repo and update the GitHub secret that the workflows read.

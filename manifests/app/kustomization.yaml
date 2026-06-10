@@ -5,10 +5,6 @@ namespace: k8s-oci
 
 resources:
   - namespace.yaml
-  - configmap.yaml
-  - deployment.yaml
-  - service.yaml
-  - ingress.yaml
   - certificate.yaml
   - oci-test-deployment.yaml
   - oci-test-service.yaml
