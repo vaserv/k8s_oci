@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ArgoCD bootstrap - rghf webpages</title>
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/argocd/">ArgoCD</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/blog/">Blog</a>
+        <span>/</span>
+        <span>ArgoCD bootstrap</span>
+      </div>
+
+      <section class="hero">
+        <p class="kicker">Blog</p>
+        <h1>Step 9: bootstrapping ArgoCD</h1>
+        <p class="lede">
+          The next rollout path is GitOps. ArgoCD sits in its own namespace, gets an HTTPS
+          ingress, and then owns the child Applications that manage the existing workloads.
+        </p>
+      </section>
+
+      <div class="card">
+        <strong>Bootstrap command</strong>
+        <pre><code>kubectl apply -k manifests/argocd/bootstrap
+kubectl -n argocd get pods
+kubectl -n argocd get applications</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>What changed</strong>
+        <ul>
+          <li>ArgoCD is installed from the upstream manifest.</li>
+          <li>The server runs behind TLS at a dedicated hostname.</li>
+          <li>A bootstrap Application fans out into smaller workload Applications.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <strong>Security notes</strong>
+        <p>
+          Do not expose the admin credentials in the repo. Read the bootstrap password once,
+          rotate it, and keep the project destination scope tight.
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

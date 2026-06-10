@@ -1,34 +1,25 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: web
+  name: argocd-server
+  namespace: argocd
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-live
+    traefik.ingress.kubernetes.io/router.middlewares: argocd-redirect@kubernetescrd
 spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - fsck.me.uk
-        - www.fsck.me.uk
-      secretName: web-tls
+        - argocd.fsck.me.uk
+      secretName: argocd-server-tls
   rules:
-    - host: fsck.me.uk
+    - host: argocd.fsck.me.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: web
-                port:
-                  number: 80
-    - host: www.fsck.me.uk
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: web
+                name: argocd-server
                 port:
                   number: 80

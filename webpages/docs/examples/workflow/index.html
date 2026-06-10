@@ -52,7 +52,7 @@ test -f webpages/docs/examples/static-site/index.html</code></pre>
 
       <div class="card">
         <strong>Deploy guard</strong>
-        <pre><code>if [ -n "${SERVER2_SSH_KEY}" ]; then
+<pre><code>if [ -n "${DEPLOY_SSH_KEY}" ]; then
   echo "enabled=true" >> "$GITHUB_OUTPUT"
 else
   echo "enabled=false" >> "$GITHUB_OUTPUT"

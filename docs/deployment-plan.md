@@ -1,12 +1,12 @@
 # Deployment Plan
 
-This is the concrete MVP deployment plan for the self-hosted server at `server2.rghf.nl`.
+This is the concrete MVP deployment plan for the self-hosted server at `server1.fsck.me.uk`.
 
 Assumption: the server is reachable on the public internet, and DNS for the app will point at the server's public IP.
 
 ## Target shape
 
-`DNS -> www.rghf.nl -> ingress controller -> Kubernetes Service -> app Pods`
+`DNS -> fsck.me.uk / www.fsck.me.uk -> ingress controller -> Kubernetes Service -> app Pods`
 
 HTTPS terminates at the cluster edge. The app itself stays private inside the cluster network.
 
@@ -74,8 +74,8 @@ kubectl apply -k manifests/infra/
 ## Phase 4: App deployment
 
 1. Build the frontend image as an OCI image.
-2. Add the `oci_test` demo workload under `https://server2.rghf.nl/oci_test` using a Kubernetes 1.36 `image` volume.
-3. Add the `webpages` site under `https://www.rghf.nl` so the docs are visible from the cluster.
+2. Add the `oci_test` demo workload under `https://fsck.me.uk/oci_test` using a Kubernetes 1.36 `image` volume.
+3. Add the `webpages` site under `https://fsck.me.uk` and `https://www.fsck.me.uk` so the docs are visible from the cluster.
 4. Push the images to GHCR with the commit SHA tag.
 5. Deploy each app as a `Deployment`.
 6. Expose each one with a `Service`.
@@ -105,4 +105,4 @@ kubectl rollout status deployment/web -n k8s-oci
 - DNS automation
 - Multi-environment promotion
 - Better rollout strategy
-- Move the `webpages` route to `www.rghf.nl` when the public home page is ready
+- Move the `rghf.nl` route to this server once the clean cutover is validated

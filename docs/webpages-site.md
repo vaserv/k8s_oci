@@ -1,7 +1,7 @@
 # Webpages Site
 
-`https://www.rghf.nl` is the hosted wrapper for the project documentation and the future public
-home pages.
+`https://fsck.me.uk` and `https://www.fsck.me.uk` are the hosted wrapper for the project
+documentation and the future public home pages.
 
 ## What it contains
 
@@ -18,7 +18,7 @@ runs the workloads.
 
 ## Live route
 
-`https://www.rghf.nl`
+`https://fsck.me.uk`
 
 ## Layout
 

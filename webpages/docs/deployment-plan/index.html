@@ -41,7 +41,7 @@
           <li>Install cert-manager and keep the TLS secret on the ingress.</li>
           <li>Mount OCI-backed HTML for the demo and the docs site.</li>
           <li>Add the GitHub Actions build-and-deploy path.</li>
-          <li>Document the next items before moving the public home page to www.rghf.nl.</li>
+          <li>Document the next items before moving the public home page to fsck.me.uk and www.fsck.me.uk.</li>
         </ul>
       </div>
 
@@ -53,8 +53,8 @@
 
       <div class="card">
         <strong>Example command sequence</strong>
-        <pre><code>ssh root@server2.example.com
-curl -fsSL https://get.k3s.io | sh -
+        <pre><code>ssh root@server1.fsck.me.uk
+SERVER_NAME=server1.fsck.me.uk sh scripts/install-k3s.sh
 kubectl apply -k manifests/infra
 kubectl apply -k manifests/app
 kubectl -n k8s-oci rollout status deployment/webpages</code></pre>

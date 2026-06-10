@@ -18,8 +18,8 @@
     </header>
     <main>
       <section class="hero">
-        <p class="kicker">Hosted on www.rghf.nl</p>
-        <h1>Webpages for the future www.rghf.nl home.</h1>
+        <p class="kicker">Hosted on fsck.me.uk</p>
+        <h1>Webpages for the future fsck.me.uk home.</h1>
         <p class="lede">
           This path is the working copy of the public site. It hosts the deployment notes,
           the reusable OCI HTML template, and the running blog that explains the build as it lands.
@@ -52,6 +52,12 @@
           <a href="/docs/examples/">Open the examples page</a>
         </article>
         <article class="card">
+          <span class="pill">GitOps</span>
+          <strong>ArgoCD bootstrap</strong>
+          <p>Install ArgoCD and let it own the rollout flow for the existing workloads.</p>
+          <a href="/docs/argocd/">Open the ArgoCD guide</a>
+        </article>
+        <article class="card">
           <span class="pill">Template</span>
           <strong>Reusable static OCI site</strong>
           <p>A small starter layout for future HTML sites mounted by Kubernetes image volumes.</p>
@@ -66,13 +72,14 @@
             <li><code>/docs</code> wrapped docs and home site</li>
             <li><code>/docs/tutorials</code> step-by-step guides</li>
             <li><code>/docs/examples</code> sanitized snippets</li>
+            <li><code>/docs/argocd</code> GitOps bootstrap</li>
           </ul>
         </article>
       </section>
     </main>
     <footer>
       The content here is intentionally small and static. It is meant to be easy to publish,
-      easy to move, and easy to extend into the final www.rghf.nl front page.
+      easy to move, and easy to extend into the final rghf.nl front page.
     </footer>
   </body>
 </html>

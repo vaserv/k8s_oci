@@ -48,10 +48,10 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - example.rghf.nl
+        - example.test
       secretName: example-tls
   rules:
-    - host: example.rghf.nl
+    - host: example.test
       http:
         paths:
           - path: /
@@ -77,8 +77,8 @@ spec:
 
       <div class="card">
         <strong>Verify</strong>
-        <pre><code>curl -I http://example.rghf.nl
-curl -I https://example.rghf.nl</code></pre>
+        <pre><code>curl -I http://example.test
+curl -I https://example.test</code></pre>
       </div>
     </main>
   </body>

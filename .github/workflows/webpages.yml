@@ -26,9 +26,9 @@ on:
 
 env:
   IMAGE_NAME: ghcr.io/vaserv/k8s-oci-webpages
-  DEPLOY_HOST: server2.rghf.nl
+  DEPLOY_HOST: server1.fsck.me.uk
   DEPLOY_USER: root
-  SERVER2_SSH_KEY: ${{ secrets.SERVER2_SSH_KEY }}
+  DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
 
 jobs:
   test:
@@ -55,8 +55,10 @@ jobs:
           required=(
             webpages/index.html
             webpages/docs/index.html
+            webpages/docs/argocd/index.html
             webpages/blog/index.html
             webpages/blog/2026-06-09-08-tutorial-expansion/index.html
+            webpages/blog/2026-06-09-09-argocd-bootstrap/index.html
             webpages/docs/tutorials/index.html
             webpages/docs/tutorials/static-oci-site/index.html
             webpages/docs/tutorials/ingress-and-tls/index.html
@@ -117,9 +119,9 @@ jobs:
       - name: Check deploy secret
         id: check
         env:
-          SERVER2_SSH_KEY: ${{ secrets.SERVER2_SSH_KEY }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
         run: |
-          if [ -n "${SERVER2_SSH_KEY}" ]; then
+          if [ -n "${DEPLOY_SSH_KEY}" ]; then
             echo "enabled=true" >> "$GITHUB_OUTPUT"
           else
             echo "enabled=false" >> "$GITHUB_OUTPUT"
@@ -129,7 +131,7 @@ jobs:
         if: steps.check.outputs.enabled == 'true'
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: ${{ secrets.SERVER2_SSH_KEY }}
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
 
       - name: Trust deploy host
         if: steps.check.outputs.enabled == 'true'
@@ -160,10 +162,11 @@ jobs:
         if: steps.check.outputs.enabled == 'true'
         run: |
           for _ in 1 2 3 4 5 6 7 8 9 10; do
-            if curl -fsS https://www.rghf.nl && \
-               curl -fsS https://www.rghf.nl/docs/tutorials/ && \
-               curl -fsS https://www.rghf.nl/docs/examples/ && \
-               curl -fsS https://www.rghf.nl/blog/; then
+            if curl -fsS https://fsck.me.uk && \
+               curl -fsS https://www.fsck.me.uk && \
+               curl -fsS https://fsck.me.uk/docs/tutorials/ && \
+               curl -fsS https://fsck.me.uk/docs/examples/ && \
+               curl -fsS https://fsck.me.uk/blog/; then
               exit 0
             fi
             sleep 3

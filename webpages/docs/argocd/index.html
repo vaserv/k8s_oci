@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ArgoCD - rghf webpages</title>
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/argocd/">ArgoCD</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/docs/">Docs</a>
+        <span>/</span>
+        <span>ArgoCD</span>
+      </div>
+
+      <section class="hero">
+        <p class="kicker">GitOps</p>
+        <h1>ArgoCD bootstrap for the cluster</h1>
+        <p class="lede">
+          ArgoCD now has a bootstrap path for this repo. It installs into its own namespace,
+          serves a locked-down HTTPS endpoint, and then syncs the child Applications that own
+          `shared-infra`, `webpages`, and `oci-test`.
+        </p>
+      </section>
+
+      <div class="card">
+        <strong>Bootstrap command</strong>
+        <pre><code>kubectl apply -k manifests/argocd/bootstrap</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Live route</strong>
+        <p><code>https://argocd.fsck.me.uk</code></p>
+      </div>
+
+      <div class="card">
+        <strong>Child Applications</strong>
+        <ul>
+          <li><code>shared-infra</code> for the namespace and shared certificate.</li>
+          <li><code>webpages</code> for the hosted docs site.</li>
+          <li><code>oci-test</code> for the hello-world OCI demo.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <strong>First login</strong>
+        <pre><code>kubectl -n argocd get secret argocd-initial-admin-secret \
+  -o jsonpath='{.data.password}' | base64 -d; echo</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Operational note</strong>
+        <p>
+          Use the initial password once, then rotate it. Keep the project destination list and
+          source repo list narrow so the GitOps surface stays predictable.
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

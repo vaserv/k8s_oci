@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webpages
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webpages
+  template:
+    metadata:
+      labels:
+        app: webpages
+    spec:
+      containers:
+        - name: webpages
+          image: nginx:1.27-alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+          volumeMounts:
+            - name: site-content
+              mountPath: /usr/share/nginx/html
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
+      volumes:
+        - name: site-content
+          image:
+            reference: ghcr.io/vaserv/k8s-oci-webpages:latest
+            pullPolicy: IfNotPresent
+        - name: nginx-config
+          configMap:
+            name: webpages-nginx-config
