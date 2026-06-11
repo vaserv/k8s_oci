@@ -50,7 +50,8 @@
 docker push ghcr.io/your-org/site:${GITHUB_SHA}
 ssh "${DEPLOY_USER}@${DEPLOY_HOST}" \
   "k3s kubectl -n k8s-oci rollout status deployment/webpages --timeout=120s"
-curl -fsS https://fsck.me.uk</code></pre>
+curl -fsS https://fsck.me.uk
+curl -fsS https://rghf.nl</code></pre>
       </div>
     </main>
   </body>

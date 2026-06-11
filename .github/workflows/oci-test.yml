@@ -147,7 +147,8 @@ jobs:
         if: steps.check.outputs.enabled == 'true'
         run: |
           for _ in 1 2 3 4 5 6 7 8 9 10; do
-            if curl -fsS https://fsck.me.uk/oci_test; then
+            if curl -fsS https://fsck.me.uk/oci_test && \
+               curl -fsS https://rghf.nl/oci_test; then
               exit 0
             fi
             sleep 3

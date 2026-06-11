@@ -37,7 +37,7 @@ data:
       <body>
         <main>
           <h1>k8s_oci</h1>
-          <p>Self-hosted Kubernetes website on fsck.me.uk.</p>
+          <p>Self-hosted Kubernetes website on fsck.me.uk and rghf.nl.</p>
           <p>HTTPS, OCI images, and a lean k3s cluster.</p>
         </main>
       </body>

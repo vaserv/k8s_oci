@@ -1,7 +1,7 @@
 # Webpages Site
 
-`https://fsck.me.uk` and `https://www.fsck.me.uk` are the hosted wrapper for the project
-documentation and the future public home pages.
+`https://fsck.me.uk`, `https://www.fsck.me.uk`, `https://rghf.nl`, and `https://www.rghf.nl`
+are the hosted wrapper for the project documentation and the public home pages.
 
 ## What it contains
 
@@ -16,9 +16,12 @@ The repository already has the source docs. The site turns those files into some
 cluster can serve directly, which makes the operational state visible from the same server that
 runs the workloads.
 
-## Live route
+## Live routes
 
 `https://fsck.me.uk`
+`https://www.fsck.me.uk`
+`https://rghf.nl`
+`https://www.rghf.nl`
 
 ## Layout
 

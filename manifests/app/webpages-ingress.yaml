@@ -10,6 +10,8 @@ spec:
     - hosts:
         - fsck.me.uk
         - www.fsck.me.uk
+        - rghf.nl
+        - www.rghf.nl
       secretName: web-tls
   rules:
     - host: fsck.me.uk
@@ -23,6 +25,26 @@ spec:
                 port:
                   number: 80
     - host: www.fsck.me.uk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webpages
+                port:
+                  number: 80
+    - host: rghf.nl
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webpages
+                port:
+                  number: 80
+    - host: www.rghf.nl
       http:
         paths:
           - path: /

@@ -21,7 +21,7 @@ This repo starts with two things:
 - Publishing the app over HTTPS
 - Using OCI images for the workload
 - Serving a hello-world demo at `/oci_test` from a Kubernetes 1.36 image volume
-- Serving the wrapped docs and future home pages at `https://fsck.me.uk` and `https://www.fsck.me.uk`
+- Serving the wrapped docs and future home pages at `https://fsck.me.uk`, `https://www.fsck.me.uk`, `https://rghf.nl`, and `https://www.rghf.nl`
 - Building and deploying the site images from GitHub Actions
 - Bootstrapping ArgoCD for GitOps rollouts
 - Installing operator tooling such as Homebrew on Linux and `k9s`
@@ -33,7 +33,7 @@ This repo starts with two things:
 - Multi-node failover
 - Advanced observability
 - Autoscaling beyond the basic MVP
-- Full DNS automation for the final `rghf.nl` handoff
+- Full DNS automation for the `rghf.nl` and `fsck.me.uk` dual-host handoff
 
 ## Docs
 

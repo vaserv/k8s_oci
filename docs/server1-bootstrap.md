@@ -4,13 +4,17 @@ This is the clean bootstrap path for `server1.fsck.me.uk`.
 
 The old server stays live until the new host passes the checks below.
 
+Before certificate issuance will complete, make sure `fsck.me.uk`, `www.fsck.me.uk`,
+`rghf.nl`, and `www.rghf.nl` point at this server's public IP addresses for both A and AAAA
+records.
+
 ## Target hostnames
 
 - `fsck.me.uk`
 - `www.fsck.me.uk`
+- `rghf.nl`
+- `www.rghf.nl`
 - `argocd.fsck.me.uk`
-
-`rghf.nl` will move here later, after the first cut is stable.
 
 ## Bootstrap order
 
@@ -67,8 +71,13 @@ If you want to keep root login for emergency access, repeat the copy for `/root/
 
 ```bash
 curl -fsS https://fsck.me.uk
+curl -fsS https://www.fsck.me.uk
+curl -fsS https://rghf.nl
+curl -fsS https://www.rghf.nl
 curl -fsS https://fsck.me.uk/docs/
 curl -fsS https://fsck.me.uk/oci_test
+curl -fsS https://rghf.nl/oci_test
+curl -fsS https://www.rghf.nl/oci_test
 curl -k -H 'Host: argocd.fsck.me.uk' https://127.0.0.1
 ```
 

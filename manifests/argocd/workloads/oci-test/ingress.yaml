@@ -7,9 +7,20 @@ spec:
   tls:
     - hosts:
         - fsck.me.uk
+        - rghf.nl
       secretName: web-tls
   rules:
     - host: fsck.me.uk
+      http:
+        paths:
+          - path: /oci_test
+            pathType: Prefix
+            backend:
+              service:
+                name: oci-test
+                port:
+                  number: 80
+    - host: rghf.nl
       http:
         paths:
           - path: /oci_test

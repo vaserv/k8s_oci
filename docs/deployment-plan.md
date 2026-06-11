@@ -6,14 +6,14 @@ Assumption: the server is reachable on the public internet, and DNS for the app 
 
 ## Target shape
 
-`DNS -> fsck.me.uk / www.fsck.me.uk -> ingress controller -> Kubernetes Service -> app Pods`
+`DNS -> fsck.me.uk / www.fsck.me.uk / rghf.nl / www.rghf.nl -> ingress controller -> Kubernetes Service -> app Pods`
 
 HTTPS terminates at the cluster edge. The app itself stays private inside the cluster network.
 
 ## Phase 1: Server prep
 
 1. Confirm DNS.
-   - Point the app hostname to the server public IP.
+   - Point `fsck.me.uk`, `www.fsck.me.uk`, `rghf.nl`, and `www.rghf.nl` at the server public IP addresses.
    - Keep the base server hostname ready for SSH and admin access.
 2. Open firewall ports.
    - `22/tcp` for SSH
@@ -74,8 +74,8 @@ kubectl apply -k manifests/infra/
 ## Phase 4: App deployment
 
 1. Build the frontend image as an OCI image.
-2. Add the `oci_test` demo workload under `https://fsck.me.uk/oci_test` using a Kubernetes 1.36 `image` volume.
-3. Add the `webpages` site under `https://fsck.me.uk` and `https://www.fsck.me.uk` so the docs are visible from the cluster.
+2. Add the `oci_test` demo workload under `https://fsck.me.uk/oci_test` and `https://rghf.nl/oci_test` using a Kubernetes 1.36 `image` volume.
+3. Add the `webpages` site under `https://fsck.me.uk`, `https://www.fsck.me.uk`, `https://rghf.nl`, and `https://www.rghf.nl` so the docs are visible from the cluster.
 4. Push the images to GHCR with the commit SHA tag.
 5. Deploy each app as a `Deployment`.
 6. Expose each one with a `Service`.
@@ -105,4 +105,4 @@ kubectl rollout status deployment/web -n k8s-oci
 - DNS automation
 - Multi-environment promotion
 - Better rollout strategy
-- Move the `rghf.nl` route to this server once the clean cutover is validated
+- Keep both public domains live and update DNS only if the IP changes
