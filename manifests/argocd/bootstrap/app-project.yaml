@@ -12,6 +12,8 @@ spec:
       server: https://kubernetes.default.svc
     - namespace: k8s-oci
       server: https://kubernetes.default.svc
+    - namespace: jellyfin
+      server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: ""
       kind: Namespace

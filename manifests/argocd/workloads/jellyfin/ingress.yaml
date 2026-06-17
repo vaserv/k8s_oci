@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jellyfin
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-live
+    external-dns.alpha.kubernetes.io/hostname: jellyfin.fsck.me.uk
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - jellyfin.fsck.me.uk
+      secretName: web-tls
+  rules:
+    - host: jellyfin.fsck.me.uk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jellyfin
+                port:
+                  number: 80

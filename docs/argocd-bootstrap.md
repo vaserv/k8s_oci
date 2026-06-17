@@ -20,11 +20,12 @@ kubectl apply -k manifests/argocd/bootstrap
 
 ## Child Applications
 
-The bootstrap application fans out into three child applications:
+The bootstrap application fans out into four child applications:
 
 - `shared-infra`
 - `webpages`
 - `oci-test`
+- `jellyfin`
 
 That gives each workload its own sync and rollback boundary while keeping the bootstrap
 process small.
@@ -35,3 +36,4 @@ process small.
 - Do not expose ArgoCD without TLS.
 - Keep the project source repo list and destination namespaces narrow.
 - Add new workloads as separate child Applications instead of broadening the project scope.
+- Treat Jellyfin as stateful: keep `/config` persistent and mount media from the host path you control.

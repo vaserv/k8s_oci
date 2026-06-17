@@ -9,6 +9,7 @@ spec:
     - www.fsck.me.uk
     - rghf.nl
     - www.rghf.nl
+    - jellyfin.fsck.me.uk
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-live

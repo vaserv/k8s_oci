@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyfin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jellyfin
+  template:
+    metadata:
+      labels:
+        app: jellyfin
+    spec:
+      containers:
+        - name: jellyfin
+          image: ghcr.io/jellyfin/jellyfin:10.11
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8096
+              name: http
+          env:
+            - name: TZ
+              value: Europe/Amsterdam
+            - name: JELLYFIN_PublishedServerUrl
+              value: https://jellyfin.fsck.me.uk
+          readinessProbe:
+            tcpSocket:
+              port: 8096
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8096
+            initialDelaySeconds: 60
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+            limits:
+              cpu: "1"
+              memory: 1536Mi
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: cache
+              mountPath: /cache
+            - name: media
+              mountPath: /media
+              readOnly: true
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: jellyfin-config
+        - name: cache
+          emptyDir: {}
+        - name: media
+          hostPath:
+            path: /srv/jellyfin/media
+            type: DirectoryOrCreate

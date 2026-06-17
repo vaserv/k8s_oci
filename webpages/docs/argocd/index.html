@@ -29,9 +29,9 @@
         <p class="kicker">GitOps</p>
         <h1>ArgoCD bootstrap for the cluster</h1>
         <p class="lede">
-          ArgoCD now has a bootstrap path for this repo. It installs into its own namespace,
+          ArgoCD now has a bootstrap path for this repo. It runs from the `default` namespace,
           serves a locked-down HTTPS endpoint, and then syncs the child Applications that own
-          `shared-infra`, `webpages`, and `oci-test`.
+          `shared-infra`, `webpages`, `oci-test`, and `jellyfin`.
         </p>
       </section>
 
@@ -51,6 +51,7 @@
           <li><code>shared-infra</code> for the namespace and shared certificate.</li>
           <li><code>webpages</code> for the hosted docs site.</li>
           <li><code>oci-test</code> for the hello-world OCI demo.</li>
+          <li><code>jellyfin</code> for the media server.</li>
         </ul>
       </div>
 

@@ -37,8 +37,8 @@
       <div class="card">
         <strong>Bootstrap command</strong>
         <pre><code>kubectl apply -k manifests/argocd/bootstrap
-kubectl -n argocd get pods
-kubectl -n argocd get applications</code></pre>
+kubectl -n default get pods
+kubectl -n default get applications</code></pre>
       </div>
 
       <div class="card">
@@ -46,7 +46,9 @@ kubectl -n argocd get applications</code></pre>
         <ul>
           <li>ArgoCD is installed from the upstream manifest.</li>
           <li>The server runs behind TLS at a dedicated hostname.</li>
+          <li>The control plane runs in the `default` namespace in this cluster layout.</li>
           <li>A bootstrap Application fans out into smaller workload Applications.</li>
+          <li>The child apps now include `shared-infra`, `webpages`, `oci-test`, and `jellyfin`.</li>
         </ul>
       </div>
 
