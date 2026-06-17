@@ -51,8 +51,9 @@ spec:
               readOnly: true
       volumes:
         - name: config
-          persistentVolumeClaim:
-            claimName: jellyfin-config
+          hostPath:
+            path: /srv/jellyfin/config
+            type: DirectoryOrCreate
         - name: cache
           emptyDir: {}
         - name: media
