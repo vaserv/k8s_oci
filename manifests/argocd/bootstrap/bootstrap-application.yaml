@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: k8s-oci-bootstrap
-  namespace: argocd
+  namespace: default
 spec:
   project: k8s-oci
   source:
@@ -11,7 +11,7 @@ spec:
     path: manifests/argocd/applications
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: default
   syncPolicy:
     automated:
       prune: true

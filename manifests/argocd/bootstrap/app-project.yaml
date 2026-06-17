@@ -2,15 +2,15 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: k8s-oci
-  namespace: argocd
+  namespace: default
 spec:
   description: GitOps project for the k8s_oci workloads
   sourceRepos:
     - https://github.com/vaserv/k8s_oci.git
   destinations:
-    - namespace: k8s-oci
+    - namespace: default
       server: https://kubernetes.default.svc
-    - namespace: argocd
+    - namespace: k8s-oci
       server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: ""
