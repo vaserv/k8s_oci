@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ExternalDNS - rghf webpages</title>
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/examples/">Examples</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/docs/">Docs</a>
+        <span>/</span>
+        <span>ExternalDNS</span>
+      </div>
+
+      <section class="hero">
+        <p class="kicker">Infra</p>
+        <h1>Cloudflare DNS for both public domains</h1>
+        <p class="lede">
+          ExternalDNS watches the ingress objects and keeps `fsck.me.uk` and `rghf.nl`
+          aligned with the cluster. The Cloudflare token is stored as a SOPS-encrypted Secret.
+          It must still be valid for the target zones and allowed to authenticate from the
+          server's public IPs.
+        </p>
+      </section>
+
+      <div class="card">
+        <strong>Managed records</strong>
+        <ul>
+          <li><code>fsck.me.uk</code></li>
+          <li><code>www.fsck.me.uk</code></li>
+          <li><code>rghf.nl</code></li>
+          <li><code>www.rghf.nl</code></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <strong>Install path</strong>
+        <pre><code>ssh root@server1.fsck.me.uk
+cd /root/k8s_oci
+sh scripts/apply-external-dns.sh</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Security note</strong>
+        <p>
+          Keep the Cloudflare token encrypted in the repo. Only the age private key should be
+          available on the operator host that applies the secret. If Cloudflare rejects the
+          token, fix the token policy first rather than bypassing the guard.
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

@@ -12,6 +12,7 @@ This repo starts with two things:
 - `k3s` on the server
 - Traefik via the default `k3s` install, or an ingress controller you prefer later
 - `cert-manager` for TLS
+- `external-dns` for Cloudflare-managed DNS
 - OCI images pulled from a registry
 - `Service` + `Ingress` for frontend exposure
 
@@ -42,6 +43,7 @@ This repo starts with two things:
 - [Webpages site](docs/webpages-site.md)
 - [OCI HTML template](docs/oci-html-template.md)
 - [ArgoCD bootstrap](docs/argocd-bootstrap.md)
+- [ExternalDNS](docs/external-dns.md)
 - [Server1 bootstrap](docs/server1-bootstrap.md)
 - [Blog index](blog/index.md)
 - [Operator tools install](scripts/install-ops-tools.sh)
@@ -51,3 +53,4 @@ This repo starts with two things:
 - Workflows: `.github/workflows/oci-test.yml`, `.github/workflows/webpages.yml`
 - Required secret for deploys: `DEPLOY_SSH_KEY`
 - The deploy keypair was generated for this setup; if you rotate to a new server key, keep the replacement out of the repo and update the GitHub secret that the workflows read.
+- The Cloudflare API token is stored encrypted with SOPS at `manifests/external-dns/cloudflare-token.sops.yaml`, and it must be valid for the target zones without a source-IP restriction that excludes the server.

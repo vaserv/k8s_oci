@@ -58,9 +58,10 @@ kubectl get pods -A
 ## Phase 3: TLS
 
 1. Install `cert-manager`.
-2. Create a `ClusterIssuer` for Let's Encrypt.
-3. Create a certificate request for the frontend hostname.
-4. Bind the certificate secret into the ingress resource.
+2. Install `external-dns` with the Cloudflare token stored as a SOPS-encrypted Secret.
+3. Create a `ClusterIssuer` for Let's Encrypt.
+4. Create a certificate request for the frontend hostname.
+5. Bind the certificate secret into the ingress resource.
 
 This keeps certificate issuance and renewal automated.
 

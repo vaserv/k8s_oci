@@ -22,12 +22,13 @@ records.
 2. Update the OS and add swap. The repo k3s installer creates `/swapfile` if it is not present.
 3. Install `k3s` with the repo script.
 4. Install `cert-manager`.
-5. Install ArgoCD.
-6. Sync the child Applications.
-7. Create or reuse a non-root operator account.
-8. Install Homebrew on Linux and `k9s` for that operator account.
-9. Verify HTTPS and app health.
-10. Move DNS only after the new server is confirmed healthy.
+5. Install `external-dns` and let Cloudflare manage the public hostnames. The Cloudflare token must be valid for the target zones and must allow requests from the server's public IPs.
+6. Install ArgoCD.
+7. Sync the child Applications.
+8. Create or reuse a non-root operator account.
+9. Install Homebrew on Linux and `k9s` for that operator account.
+10. Verify HTTPS and app health.
+11. Move DNS only after the new server is confirmed healthy.
 
 ## Commands
 
@@ -38,6 +39,7 @@ apt-get upgrade -y
 SERVER_NAME=server1.fsck.me.uk sh scripts/install-k3s.sh
 kubectl get nodes
 kubectl apply -k manifests/infra
+sh scripts/apply-external-dns.sh
 kubectl apply -k manifests/argocd/bootstrap
 kubectl -n argocd get pods
 kubectl -n argocd get app

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Step 10 - rghf webpages</title>
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">rghf webpages</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/examples/">Examples</a>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/blog/">Blog</a>
+        <span>/</span>
+        <span>Step 10</span>
+      </div>
+
+      <section class="hero">
+        <p class="kicker">Blog</p>
+        <h1>Step 10: Cloudflare DNS with ExternalDNS</h1>
+        <p class="lede">
+          The cluster now carries an external-dns controller that watches ingress objects and
+          keeps the public hostnames in sync with Cloudflare. The controller only works when
+          the token is valid for the managed zones and accepted from the server's public IPs.
+        </p>
+      </section>
+
+      <div class="card">
+        <strong>What changed</strong>
+        <ul>
+          <li>Added a Cloudflare token secret encrypted with SOPS and age.</li>
+          <li>Installed ExternalDNS with `fsck.me.uk` and `rghf.nl` domain filters.</li>
+          <li>Documented the root-only key path outside the repo.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <strong>Apply flow</strong>
+        <pre><code>ssh root@server1.fsck.me.uk
+cd /root/k8s_oci
+sh scripts/apply-external-dns.sh
+kubectl -n external-dns logs deploy/external-dns</code></pre>
+      </div>
+
+      <div class="card">
+        <strong>Security rule</strong>
+        <p>
+          Only the encrypted manifest lives in git. The age private key stays on the operator
+          host or the server, not in the repository. Cloudflare token policy still has to allow
+          the host that runs the controller.
+        </p>
+      </div>
+    </main>
+  </body>
+</html>
